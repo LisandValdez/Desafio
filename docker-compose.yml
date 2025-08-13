@@ -23,6 +23,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
+    mem_limit: 2g  # Limitar a 2GB de memoria
+    mem_reservation: 1g  # Reservar 1GB de memoria
 
   frontend:
     build: ./frontend

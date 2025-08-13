@@ -8,7 +8,9 @@ done
 echo "✅ Postgres listo"
 
 echo "📦 Ejecutando migraciones..."
-npx prisma migrate deploy
+
+# Intentar ejecutar las migraciones de Prisma y continuar incluso si hay errores
+npx prisma migrate deploy || echo "⚠️ No hay migraciones pendientes o ocurrió un error durante las migraciones."
 
 echo "🚀 Iniciando backend..."
 exec npm run start:dev
