@@ -2,19 +2,18 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-
-RUN apk add --no-cache openssl
-
+RUN apk add --no-cache openssl postgresql-client
 
 COPY package.json package-lock.json* ./
-
 RUN npm ci --silent
 
 COPY . .
 
-
 RUN npx prisma generate || true
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
+ENTRYPOINT ["/entrypoint.sh"]
